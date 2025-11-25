@@ -1,4 +1,4 @@
-# 皮亚诺公理 (Piano Axioms)
+# 皮亚诺公理 (Peano Axioms)
 
 ### 内容
 1. PA1: 0 是自然数
