@@ -51,7 +51,7 @@ $$
 $$
 自然对数：
 $$
-\ln x=x-\frac{x^2}{2}+\frac{x^3}{3}+\dots+\frac{x^n}{n}+o(x^n)
+\ln (1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}+\dots+\frac{x^n}{n}+o(x^n)
 $$
 类似二项式定理的形式：
 $$
