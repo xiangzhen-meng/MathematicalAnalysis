@@ -20,6 +20,65 @@ f(x)=P_n(x;x_{0})+\frac{f^{(n)}(x_{0}+\theta\Delta x)}{n!}(\Delta x)^{n},\theta\
 $$
 对于这样形式的更深入的理解，参看 [[Q 通过 Taylor 展开理解中值定理的参数形式]] 
 
+## 带积分余项的泰勒展开
+
+### 定理
+
+>[!note] 带积分余项的 Taylor 定理
+>设函数 $f$ 在区间 $[a,b]$ 上有 $n+1$ 阶连续导数，则对任意 $x \in [a,b]$，有：
+>$$f(x) = \sum_{k=0}^n \frac{f^{(k)}(a)}{k!}(x-a)^k + R_{n+1}(x)$$
+>其中**积分余项**为：
+>$$R_{n+1}(x) = \frac{1}{n!}\int_a^x (x-t)^n f^{(n+1)}(t) \, dt$$
+>或等价地写成：
+>$$R_{n+1}(x) = \frac{(x-a)^{n+1}}{n!}\int_0^1 (1-t)^n f^{(n+1)}(a+t(x-a)) \, dt$$
+
+### 证明
+
+**核心方法**：反复使用分部积分法，从 Newton-Leibniz 公式出发
+
+从基本公式开始：
+$$f(x) - f(a) = \int_a^x f'(t) \, dt$$
+
+**第一次分部积分**：设 $u = f'(t)$，$dv = dt$，选取 $v = t - x$（而非 $v = t$），则：
+
+$$\begin{align}
+\int_a^x f'(t) \, dt &= [f'(t)(t-x)]_a^x - \int_a^x (t-x)f''(t) \, dt \\
+&= f'(a)(x-a) + \int_a^x (x-t)f''(t) \, dt
+\end{align}$$
+
+**第二次分部积分**：对剩余积分，设 $u = f''(t)$，$dv = (x-t)dt$，则 $v = -\frac{(x-t)^2}{2}$：
+
+$$\begin{align}
+\int_a^x (x-t)f''(t) \, dt &= \left[-\frac{(x-t)^2}{2}f''(t)\right]_a^x + \int_a^x \frac{(x-t)^2}{2}f^{(3)}(t) \, dt \\
+&= \frac{f''(a)}{2}(x-a)^2 + \frac{1}{2}\int_a^x (x-t)^2 f^{(3)}(t) \, dt
+\end{align}$$
+
+**归纳进行**：重复上述过程 $n$ 次，每次分部积分都会：
+- 产生一个边界项 $\frac{f^{(k)}(a)}{k!}(x-a)^k$
+- 剩余积分的被积函数中，$(x-t)$ 的幂次增加 1，$f$ 的导数阶数增加 1
+
+最终得到：
+$$f(x) = \sum_{k=0}^n \frac{f^{(k)}(a)}{k!}(x-a)^k + \frac{1}{n!}\int_a^x (x-t)^n f^{(n+1)}(t) \, dt$$
+
+**变量替换**：令 $t = a + \tau(x-a)$，则 $dt = (x-a)d\tau$，积分限变为 $[0,1]$：
+
+$$\begin{align}
+&\int_a^x (x-t)^n f^{(n+1)}(t) \, dt \\
+&= \int_0^1 (x-a)^n(1-\tau)^n f^{(n+1)}(a+\tau(x-a)) (x-a) \, d\tau \\
+&= (x-a)^{n+1}\int_0^1 (1-\tau)^n f^{(n+1)}(a+\tau(x-a)) \, d\tau
+\end{align}$$
+
+代入即得第二种形式。
+
+### 理解
+
+#### 与 Lagrange 余项的关系
+
+Lagrange 余项可视为积分余项的**特例**：由积分中值定理，存在 $\xi \in (a,x)$ 使得：
+$$R_{n+1}(x) = \frac{f^{(n+1)}(\xi)}{n!}\int_a^x (x-t)^n dt = \frac{f^{(n+1)}(\xi)}{(n+1)!}(x-a)^{n+1}$$
+
+这说明 Lagrange 余项是积分余项的"单点近似"——它选取了某一个特定点 $\xi$ 的导数值来代表整个区间的信息。
+
 ## 理解
 
 ### 实解析函数
